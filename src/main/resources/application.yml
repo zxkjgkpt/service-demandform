@@ -6,7 +6,7 @@ spring:
   zipkin:
     base-url: http://localhost:9411
   datasource:
-    #url: jdbc:mysql://127.0.0.1:3306/test_user?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/yk_xqd?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -68,8 +68,6 @@ management:
       cors:
         allowed-origins: "*"
         allowed-methods: "*"
-service:
-  tips-url: http://localhost:8770/
 
 #TC配置信息
 tx-lcn:
