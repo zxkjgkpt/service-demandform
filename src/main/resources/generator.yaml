@@ -1,15 +1,16 @@
 db:
-  #url: jdbc:mysql://127.0.0.1:3306/test_user?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+  url: jdbc:mysql://127.0.0.1:3306/yk_xqd?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
   username: root
   password: root
 author: auto
 packageName: com.yfny.servicedemandform
+entityPackageName: com.yfny.corepojo.entity.demandform
 path:
   controller: controller
-  service: service.impl
-  interf: service
-  dao: dao
+  service: service
+  interf:
   entity: entity
-  mapper: mappers
+  mapper: mapper
+  hystrix:
   basetest: base
   unittest: unit
