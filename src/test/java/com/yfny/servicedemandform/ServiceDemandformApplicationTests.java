@@ -32,10 +32,11 @@ public class ServiceDemandformApplicationTests {
             System.out.println("****************************************************");
         }
     }
-    
+
     @Test
     public void producerInvokerTest() {
         Invoker invoker = new ProducerInvoker.Builder()
+                .setTableName("imp_xqd_xqdxx")
                 .setClassName("Xqdxx")
                 .setDescription("需求单详情")
                 .setFirst(true)

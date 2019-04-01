@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 微服务通用ServiceImpl
  * Author auto
- * Date  2019-03-29
+ * Date  2019-04-02
  */
 public abstract class BaseServiceImpl<T> {
 
@@ -143,7 +143,7 @@ public abstract class BaseServiceImpl<T> {
      */
     public List<T> findList(T entity, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return getBaseMapper().select(entity);
+        return this.findList(entity);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class BaseServiceImpl<T> {
      */
     public List<T> findAllList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return getBaseMapper().selectAll();
+        return this.findAllList();
     }
 
 }
