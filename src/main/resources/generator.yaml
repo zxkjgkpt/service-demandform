@@ -4,11 +4,11 @@ db:
   password: root
 author: auto
 packageName: com.yfny.servicedemandform
-entityPackageName: com.yfny.corepojo.entity.demandform
+entityPackageName: com.yfny.corepojo
 path:
   controller: controller
   service: service
-  entity: entity
+  entity: entity.demandform
   mapper: mapper
   sqlbuilder: sqlbuilder
   hystrix:

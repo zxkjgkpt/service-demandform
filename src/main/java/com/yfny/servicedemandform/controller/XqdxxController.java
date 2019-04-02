@@ -28,14 +28,14 @@ public class XqdxxController extends BaseController<XqdxxEntity> {
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用等号
+     *
      * @param   xqdxx    对象实体
-     * @param   orders    排序字段
-     * @return  对象列表
+     * @return  返回对象列表为查询结果
      */
     @PostMapping(value = "/findXqdxxByCondition")
     @ResponseBody
-    public List<XqdxxEntity> findXqdxxByCondition1(XqdxxEntity xqdxx, String... orders) throws Exception {
-        List<XqdxxEntity> result = xqdxxService.findXqdxxByCondition(xqdxx, orders);
+    public List<XqdxxEntity> findXqdxxByCondition1(@RequestBody XqdxxEntity xqdxx) throws Exception {
+        List<XqdxxEntity> result = xqdxxService.findXqdxxByCondition(xqdxx);
         if (result == null) {
             result = new ArrayList<>();
         }
@@ -44,17 +44,17 @@ public class XqdxxController extends BaseController<XqdxxEntity> {
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用等号，分页返回
+     *
      * @param   xqdxx    对象实体
      * @param   pageNum   页数
      * @param   pageSize  每页数量
-     * @param   orders    排序字段
-     * @return  对象列表
+     * @return  返回对象列表为查询结果
      */
     @PostMapping(value = "/findXqdxxByCondition/{pageNum}/{pageSize}")
     @ResponseBody
-    public List<XqdxxEntity> findXqdxxByCondition2(XqdxxEntity xqdxx,
-                @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize, String... orders) throws Exception {
-        List<XqdxxEntity> result = xqdxxService.findXqdxxByCondition(xqdxx, pageNum, pageSize, orders);
+    public List<XqdxxEntity> findXqdxxByCondition2(@RequestBody XqdxxEntity xqdxx,
+                @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) throws Exception {
+        List<XqdxxEntity> result = xqdxxService.findXqdxxByCondition(xqdxx, pageNum, pageSize);
         if (result == null) {
             result = new ArrayList<>();
         }

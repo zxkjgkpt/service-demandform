@@ -12,11 +12,11 @@ public class XqdxxSqlBuilder {
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用等号
+     *
      * @param   xqdxx    对象实体
-     * @param   orders   排序字段
      * @return  Sql语句
      */
-    public String buildFindXqdxxByCondition(final XqdxxEntity xqdxx, final String[] orders) {
+    public String buildFindXqdxxByCondition(final XqdxxEntity xqdxx) {
         return new SQL(){{
             SELECT("*");
             FROM("imp_xqd_xqdxx");
@@ -119,8 +119,8 @@ public class XqdxxSqlBuilder {
             if (xqdxx.getTaskId() != null && !xqdxx.getTaskId().equals("")) {
                 WHERE("TASK_ID like #{xqdxx.taskId} || '%'");
             }
-            if (orders != null && orders.length > 0) {
-                ORDER_BY(orders);
+            if (xqdxx.getOrders() != null && xqdxx.getOrders().length > 0) {
+                ORDER_BY(xqdxx.getOrders());
             }
         }}.toString();
     }
