@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 微服务通用ServiceImpl
  * Author auto
- * Date  2019-04-02
+ * Date  2019-04-03
  */
 public abstract class BaseServiceImpl<T extends BaseEntity> {
 
@@ -158,14 +158,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity> {
     public List<T> findList(T entity, int pageNum, int pageSize) {
         Page<T> resultPage = PageHelper.startPage(pageNum, pageSize);
         List<T> resultList = this.findList(entity);
-        if (resultList != null) {
-            for (T result : resultList) {
-                result.setPageNum(resultPage.getPageNum());
-                result.setPageSize(resultPage.getPageSize());
-                result.setPageCount(resultPage.getPages());
-                result.setTotal(resultPage.getTotal());
-            }
-        }
+        setResultPage(resultPage, resultList);
         return resultList;
     }
 
@@ -188,6 +181,17 @@ public abstract class BaseServiceImpl<T extends BaseEntity> {
     public List<T> findAllList(int pageNum, int pageSize) {
         Page<T> resultPage = PageHelper.startPage(pageNum, pageSize);
         List<T> resultList = this.findAllList();
+        setResultPage(resultPage, resultList);
+        return resultList;
+    }
+
+    /**
+     * 设置分页相关数据
+     *
+     * @param   resultPage  分页结果
+     * @param   resultList  对象列表结果
+     */
+    public void setResultPage(Page<T> resultPage, List<T> resultList) {
         if (resultList != null) {
             for (T result : resultList) {
                 result.setPageNum(resultPage.getPageNum());
@@ -196,7 +200,6 @@ public abstract class BaseServiceImpl<T extends BaseEntity> {
                 result.setTotal(resultPage.getTotal());
             }
         }
-        return resultList;
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 需求单详情ServiceImpl
  * Author auto
- * Date  2019-04-02
+ * Date  2019-04-03
  */
 @Service
 public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
@@ -27,34 +27,52 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
     }
 
     /**
-     * 根据实体中的属性值进行查询，查询条件使用等号
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
      *
      * @param   xqdxx    对象实体
      * @return  返回对象列表为查询结果
      */
-    public List<XqdxxEntity> findXqdxxByCondition(XqdxxEntity xqdxx) {
-        return xqdxxMapper.findXqdxxByCondition(xqdxx);
+    public List<XqdxxEntity> findXqdxxByAndCondition(XqdxxEntity xqdxx) {
+        return xqdxxMapper.findXqdxxByAndCondition(xqdxx);
     }
 
     /**
-     * 根据实体中的属性值进行查询，查询条件使用等号，分页返回
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集，分页返回
      *
      * @param   xqdxx    对象实体
      * @param   pageNum   页数
      * @param   pageSize  每页数量
      * @return  对象列表
      */
-    public List<XqdxxEntity> findXqdxxByCondition(XqdxxEntity xqdxx, int pageNum, int pageSize) {
+    public List<XqdxxEntity> findXqdxxByAndCondition(XqdxxEntity xqdxx, int pageNum, int pageSize) {
         Page<XqdxxEntity> resultPage = PageHelper.startPage(pageNum, pageSize);
-        List<XqdxxEntity> resultList = xqdxxMapper.findXqdxxByCondition(xqdxx);
-        if (resultList != null) {
-            for (XqdxxEntity result : resultList) {
-                result.setPageNum(resultPage.getPageNum());
-                result.setPageSize(resultPage.getPageSize());
-                result.setPageCount(resultPage.getPages());
-                result.setTotal(resultPage.getTotal());
-            }
-        }
+        List<XqdxxEntity> resultList = xqdxxMapper.findXqdxxByAndCondition(xqdxx);
+        setResultPage(resultPage, resultList);
+        return resultList;
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
+     *
+     * @param   xqdxx    对象实体
+     * @return  返回对象列表为查询结果
+     */
+    public List<XqdxxEntity> findXqdxxByORCondition(XqdxxEntity xqdxx) {
+        return xqdxxMapper.findXqdxxByORCondition(xqdxx);
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集，分页返回
+     *
+     * @param   xqdxx    对象实体
+     * @param   pageNum   页数
+     * @param   pageSize  每页数量
+     * @return  对象列表
+     */
+    public List<XqdxxEntity> findXqdxxByORCondition(XqdxxEntity xqdxx, int pageNum, int pageSize) {
+        Page<XqdxxEntity> resultPage = PageHelper.startPage(pageNum, pageSize);
+        List<XqdxxEntity> resultList = xqdxxMapper.findXqdxxByORCondition(xqdxx);
+        setResultPage(resultPage, resultList);
         return resultList;
     }
 
