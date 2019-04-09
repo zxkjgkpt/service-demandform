@@ -4,7 +4,6 @@ import com.yfny.corepojo.entity.demandform.XqdxxEntity;
 import com.yfny.servicedemandform.sqlbuilder.XqdxxSqlBuilder;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
-import tk.mybatis.mapper.common.BaseMapper;
 
 import java.util.List;
 

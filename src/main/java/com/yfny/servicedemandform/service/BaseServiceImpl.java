@@ -4,7 +4,7 @@ import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yfny.corepojo.base.BaseEntity;
-import tk.mybatis.mapper.common.BaseMapper;
+import com.yfny.servicedemandform.mapper.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

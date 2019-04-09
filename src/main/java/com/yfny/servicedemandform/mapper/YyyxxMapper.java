@@ -5,7 +5,6 @@ import com.yfny.servicedemandform.sqlbuilder.YyyxxSqlBuilder;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
-import tk.mybatis.mapper.common.BaseMapper;
 
 import java.util.List;
 
