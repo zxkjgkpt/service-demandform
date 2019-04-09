@@ -20,7 +20,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableHystrix
 @EnableHystrixDashboard
 @EnableCircuitBreaker
-@MapperScan({"com.yfny.servicedemandform.mapper", "tk.mybatis.mapper.common.base"})
+@MapperScan("com.yfny.servicedemandform.mapper")
 @ComponentScan(basePackages = {"com.yfny.**.**"})
 @EnableDistributedTransaction
 public class ServiceDemandformApplication {
