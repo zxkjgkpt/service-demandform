@@ -2,6 +2,7 @@ package com.yfny.servicedemandform;
 
 import com.yfny.utilscommon.generator.entity.RequestInfo;
 import com.yfny.utilscommon.generator.invoker.ProducerInvoker;
+import com.yfny.utilscommon.generator.invoker.RelationInvoker;
 import com.yfny.utilscommon.generator.invoker.TestInvoker;
 import com.yfny.utilscommon.generator.invoker.base.Invoker;
 import com.yfny.utilscommon.util.CodeInfoUtils;
@@ -35,11 +36,38 @@ public class ServiceDemandformApplicationTests {
 
     @Test
     public void producerInvokerTest() {
-        Invoker invoker = new ProducerInvoker.Builder()
-                .setTableName("imp_xqd_xqdxx")
+
+//        Invoker invoker1 = new ProducerInvoker.Builder()
+//                .setTableName("imp_xqd_xqdxx")
+//                .setClassName("Xqdxx")
+//                .setDescription("需求单详情")
+//                .setFirst(true)
+//                .build();
+//        invoker1.execute();
+
+        Invoker invoker2 = new ProducerInvoker.Builder()
+                .setTableName("imp_xqd_ywyxx")
+                .setClassName("Ywyxx")
+                .setDescription("需求单业务域详情")
+                .build();
+        invoker2.execute();
+
+        Invoker invoker3 = new ProducerInvoker.Builder()
+                .setTableName("imp_xqd_yyyxx")
+                .setClassName("Yyyxx")
+                .setDescription("需求单应用域详情")
+                .build();
+        invoker3.execute();
+    }
+
+    @Test
+    public void initRelationTest() {
+        Invoker invoker = new RelationInvoker.Builder()
                 .setClassName("Xqdxx")
-                .setDescription("需求单详情")
-                .setFirst(true)
+                .setForeignKey("XQDH")
+                .setRelationClass("Ywyxx", RelationInvoker.Builder.ONE_TO_MANY)
+                .setRelationClass("Yyyxx", RelationInvoker.Builder.ONE_TO_MANY)
+                .setWriteType(RelationInvoker.Builder.PRODUCER_FILE)
                 .build();
         invoker.execute();
     }
