@@ -22,10 +22,13 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
      */
     @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByAndCondition")
     @Results({
+            @Result(id = true, column = "XQDH", property = "xqdh"),
             @Result(property = "ywyxxList", column = "XQDH",
                     many = @Many(select = "com.yfny.servicedemandform.mapper.YwyxxMapper.findYwyxxByXqdh", fetchType = FetchType.EAGER)),
             @Result(property = "yyyxxList", column = "XQDH",
-                    many = @Many(select = "com.yfny.servicedemandform.mapper.YyyxxMapper.findYyyxxByXqdh", fetchType = FetchType.EAGER))
+                    many = @Many(select = "com.yfny.servicedemandform.mapper.YyyxxMapper.findYyyxxByXqdh", fetchType = FetchType.EAGER)),
+            @Result(property = "xqdFileList", column = "XQDH",
+                    many = @Many(select = "com.yfny.servicedemandform.mapper.XqdFileMapper.findXqdFileByPath", fetchType = FetchType.EAGER))
     })
     List<XqdxxEntity> findXqdxxByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 
@@ -37,10 +40,13 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
      */
     @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByORCondition")
     @Results({
+            @Result(id = true, column = "XQDH", property = "xqdh"),
             @Result(property = "ywyxxList", column = "XQDH",
                     many = @Many(select = "com.yfny.servicedemandform.mapper.YwyxxMapper.findYwyxxByXqdh", fetchType = FetchType.EAGER)),
             @Result(property = "yyyxxList", column = "XQDH",
-                    many = @Many(select = "com.yfny.servicedemandform.mapper.YyyxxMapper.findYyyxxByXqdh", fetchType = FetchType.EAGER))
+                    many = @Many(select = "com.yfny.servicedemandform.mapper.YyyxxMapper.findYyyxxByXqdh", fetchType = FetchType.EAGER)),
+            @Result(property = "xqdFileList", column = "XQDH",
+                    many = @Many(select = "com.yfny.servicedemandform.mapper.XqdFileMapper.findXqdFileByPath", fetchType = FetchType.EAGER))
     })
     List<XqdxxEntity> findXqdxxByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 

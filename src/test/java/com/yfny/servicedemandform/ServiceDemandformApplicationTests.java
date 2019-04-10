@@ -44,20 +44,27 @@ public class ServiceDemandformApplicationTests {
 //                .setFirst(true)
 //                .build();
 //        invoker1.execute();
+//
+//        Invoker invoker2 = new ProducerInvoker.Builder()
+//                .setTableName("imp_xqd_ywyxx")
+//                .setClassName("Ywyxx")
+//                .setDescription("需求单业务域详情")
+//                .build();
+//        invoker2.execute();
+//
+//        Invoker invoker3 = new ProducerInvoker.Builder()
+//                .setTableName("imp_xqd_yyyxx")
+//                .setClassName("Yyyxx")
+//                .setDescription("需求单应用域详情")
+//                .build();
+//        invoker3.execute();
 
-        Invoker invoker2 = new ProducerInvoker.Builder()
-                .setTableName("imp_xqd_ywyxx")
-                .setClassName("Ywyxx")
-                .setDescription("需求单业务域详情")
+        Invoker invoker4 = new ProducerInvoker.Builder()
+                .setTableName("imp_xqd_files")
+                .setClassName("XqdFile")
+                .setDescription("需求单附件")
                 .build();
-        invoker2.execute();
-
-        Invoker invoker3 = new ProducerInvoker.Builder()
-                .setTableName("imp_xqd_yyyxx")
-                .setClassName("Yyyxx")
-                .setDescription("需求单应用域详情")
-                .build();
-        invoker3.execute();
+        invoker4.execute();
     }
 
     @Test
@@ -67,6 +74,7 @@ public class ServiceDemandformApplicationTests {
                 .setForeignKey("XQDH")
                 .setRelationClass("Ywyxx", RelationInvoker.Builder.ONE_TO_MANY)
                 .setRelationClass("Yyyxx", RelationInvoker.Builder.ONE_TO_MANY)
+                .setRelationClass("XqdFile", RelationInvoker.Builder.ONE_TO_MANY)
                 .setWriteType(RelationInvoker.Builder.PRODUCER_FILE)
                 .build();
         invoker.execute();
