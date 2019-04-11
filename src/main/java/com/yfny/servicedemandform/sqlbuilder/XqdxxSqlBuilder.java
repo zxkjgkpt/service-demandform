@@ -3,6 +3,7 @@ package com.yfny.servicedemandform.sqlbuilder;
 import com.yfny.corepojo.entity.demandform.XqdxxEntity;
 import org.apache.ibatis.jdbc.SQL;
 
+import java.text.SimpleDateFormat;
 import java.util.Map;
 
 /**
@@ -15,8 +16,8 @@ public class XqdxxSqlBuilder {
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，多条件并列查询取交集
      *
-     * @param   xqdxx    对象实体
-     * @return  Sql语句
+     * @param xqdxx 对象实体
+     * @return Sql语句
      */
     public String buildFindXqdxxByAndCondition(final XqdxxEntity xqdxx) {
         return buildFindXqdxxByCondition(xqdxx, 0);
@@ -25,8 +26,8 @@ public class XqdxxSqlBuilder {
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，多条件亦或查询取并集
      *
-     * @param   xqdxx    对象实体
-     * @return  Sql语句
+     * @param xqdxx 对象实体
+     * @return Sql语句
      */
     public String buildFindXqdxxByORCondition(final XqdxxEntity xqdxx) {
         return buildFindXqdxxByCondition(xqdxx, 1);
@@ -40,11 +41,13 @@ public class XqdxxSqlBuilder {
             orSql = " '%'";
         }
         String finalOrSql = orSql;
-        String sqlResult = new SQL(){{
+        String sqlResult = new SQL() {{
             SELECT("*");
             FROM("imp_xqd_xqdxx");
             if (xqdxx.getXqdh() != null && !xqdxx.getXqdh().equals("")) {
-                WHERE("XQDH like #{xqdxx.xqdh}" + finalOrSql);
+                //将中文逗号替换成英文逗号
+                xqdxx.setXqdh(xqdxx.getXqdh().replace("，", ","));
+                WHERE("XQDH IN (" + xqdxx.getXqdh() + ")");
             }
             if (xqdxx.getSqbmmc() != null && !xqdxx.getSqbmmc().equals("")) {
                 WHERE("SQBMMC like #{xqdxx.sqbmmc}" + finalOrSql);
@@ -141,6 +144,36 @@ public class XqdxxSqlBuilder {
             }
             if (xqdxx.getTaskId() != null && !xqdxx.getTaskId().equals("")) {
                 WHERE("TASK_ID like #{xqdxx.taskId}" + finalOrSql);
+            }
+            if (xqdxx.getFjbz() != null && !xqdxx.getFjbz().equals("")) {
+                if (xqdxx.getFjbz().equals("TRUE")) {
+                    WHERE("XQDH IN (SELECT PATH FROM imp_xqd_files)");
+                } else {
+                    WHERE("XQDH NOT IN (SELECT PATH FROM imp_xqd_files)");
+                }
+
+            }
+            if (xqdxx.getStartTime() != null && !xqdxx.getStartTime().equals("")) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date = null;
+                try {
+                    date = sdf.format(sdf.parse(xqdxx.getStartTime()));
+                }catch (Exception e){
+
+                }
+                xqdxx.setStartTime(date);
+                WHERE("CJSJ >= #{xqdxx.startTime}" + finalOrSql);
+            }
+            if (xqdxx.getEndTime() != null && !xqdxx.getEndTime().equals("")) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date = null;
+                try {
+                    date = sdf.format(sdf.parse(xqdxx.getEndTime()));
+                }catch (Exception e){
+
+                }
+                xqdxx.setEndTime(date);
+                WHERE("CJSJ <= #{xqdxx.endTime}" + finalOrSql);
             }
         }}.toString();
 

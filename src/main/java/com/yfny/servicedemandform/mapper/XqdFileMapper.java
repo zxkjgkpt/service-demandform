@@ -58,7 +58,7 @@ public interface XqdFileMapper extends BaseMapper<XqdFileEntity> {
             "FILE_ALIAS AS fileAlias," +
             "COLUMN_17 AS column17," +
             "COLUMN_18 AS column18" +
-            "from imp_xqd_files where PATH = #{path}")
+            " from imp_xqd_files where PATH = #{path}")
     List<XqdFileEntity> findXqdFileByPath(String path);
 
 }
