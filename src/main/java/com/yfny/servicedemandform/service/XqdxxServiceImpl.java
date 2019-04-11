@@ -113,7 +113,7 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
     @Override
     @LcnTransaction //分布式事务注解
     @Transactional  //本地事务注解
-    public int delete(XqdxxEntity entity) {
+    public int delete(XqdxxEntity entity) throws InvocationTargetException, IllegalAccessException {
         deleteRelation(entity.getXqdh());
         return super.delete(entity);
     }
@@ -121,7 +121,7 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
     @Override
     @LcnTransaction //分布式事务注解
     @Transactional  //本地事务注解
-    public int deleteByPrimaryKey(Object key) {
+    public int deleteByPrimaryKey(Object key) throws InvocationTargetException, IllegalAccessException {
         deleteRelation((String) key);
         return super.deleteByPrimaryKey(key);
     }
@@ -129,12 +129,22 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
     @Override
     @LcnTransaction //分布式事务注解
     @Transactional  //本地事务注解
-    public int deleteByIds(String ids) {
+    public int deleteByIds(String ids) throws InvocationTargetException, IllegalAccessException {
         String[] foreignKeys = ids.split(",");
         for (String foreignKey : foreignKeys) {
             deleteRelation(foreignKey);
         }
         return super.deleteByIds(ids);
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
+     *
+     * @param xqdxx 对象实体
+     * @return 返回对象列表为查询结果
+     */
+    public List<XqdxxEntity> findSimpleXqdxxByAndCondition(XqdxxEntity xqdxx) {
+        return xqdxxMapper.findSimpleXqdxxByAndCondition(xqdxx);
     }
 
     /**
@@ -168,6 +178,16 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
      * @param xqdxx 对象实体
      * @return 返回对象列表为查询结果
      */
+    public List<XqdxxEntity> findSimpleXqdxxByORCondition(XqdxxEntity xqdxx) {
+        return xqdxxMapper.findSimpleXqdxxByORCondition(xqdxx);
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
+     *
+     * @param xqdxx 对象实体
+     * @return 返回对象列表为查询结果
+     */
     public List<XqdxxEntity> findXqdxxByORCondition(XqdxxEntity xqdxx) {
         return xqdxxMapper.findXqdxxByORCondition(xqdxx);
     }
@@ -187,7 +207,7 @@ public class XqdxxServiceImpl extends BaseServiceImpl<XqdxxEntity> {
         return resultList;
     }
 
-    private void deleteRelation(String foreignKey) {
+    private void deleteRelation(String foreignKey) throws InvocationTargetException, IllegalAccessException {
         YwyxxEntity ywyxxParam = new YwyxxEntity();
         ywyxxParam.setXqdh(foreignKey);
         ywyxxService.delete(ywyxxParam);

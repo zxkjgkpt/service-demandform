@@ -21,6 +21,15 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
      * @return  返回对象列表为查询结果
      */
     @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByAndCondition")
+    List<XqdxxEntity> findSimpleXqdxxByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
+     *
+     * @param   xqdxx    对象实体
+     * @return  返回对象列表为查询结果
+     */
+    @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByAndCondition")
     @Results({
             @Result(id = true, column = "XQDH", property = "xqdh"),
             @Result(property = "ywyxxList", column = "XQDH",
@@ -31,6 +40,15 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
                     many = @Many(select = "com.yfny.servicedemandform.mapper.XqdFileMapper.findXqdFileByPath", fetchType = FetchType.EAGER))
     })
     List<XqdxxEntity> findXqdxxByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
+     *
+     * @param   xqdxx    对象实体
+     * @return  返回对象列表为查询结果
+     */
+    @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByORCondition")
+    List<XqdxxEntity> findSimpleXqdxxByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集

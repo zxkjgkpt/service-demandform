@@ -32,6 +32,22 @@ public class XqdxxController extends BaseController<XqdxxEntity> {
      * @param   xqdxx    对象实体
      * @return  返回对象列表为查询结果
      */
+    @PostMapping(value = "/findSimpleXqdxxByAndCondition")
+    @ResponseBody
+    public List<XqdxxEntity> findSimpleXqdxxByAndCondition1(@RequestBody XqdxxEntity xqdxx) throws Exception {
+        List<XqdxxEntity> result = xqdxxService.findSimpleXqdxxByAndCondition(xqdxx);
+        if (result == null) {
+            result = new ArrayList<>();
+        }
+        return result;
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
+     *
+     * @param   xqdxx    对象实体
+     * @return  返回对象列表为查询结果
+     */
     @PostMapping(value = "/findXqdxxByAndCondition")
     @ResponseBody
     public List<XqdxxEntity> findXqdxxByAndCondition1(@RequestBody XqdxxEntity xqdxx) throws Exception {
@@ -55,6 +71,22 @@ public class XqdxxController extends BaseController<XqdxxEntity> {
     public List<XqdxxEntity> findXqdxxByAndCondition2(@RequestBody XqdxxEntity xqdxx,
                 @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) throws Exception {
         List<XqdxxEntity> result = xqdxxService.findXqdxxByAndCondition(xqdxx, pageNum, pageSize);
+        if (result == null) {
+            result = new ArrayList<>();
+        }
+        return result;
+    }
+
+    /**
+     * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
+     *
+     * @param   xqdxx    对象实体
+     * @return  返回对象列表为查询结果
+     */
+    @PostMapping(value = "/findSimpleXqdxxByORCondition")
+    @ResponseBody
+    public List<XqdxxEntity> findSimpleXqdxxByORCondition1(@RequestBody XqdxxEntity xqdxx) throws Exception {
+        List<XqdxxEntity> result = xqdxxService.findSimpleXqdxxByORCondition(xqdxx);
         if (result == null) {
             result = new ArrayList<>();
         }
