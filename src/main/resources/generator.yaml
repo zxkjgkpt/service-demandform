@@ -10,6 +10,7 @@ path:
   service: service
   entity: entity.demandform
   mapper: mapper
+  future: future
   sqlbuilder: sqlbuilder
   hystrix:
   basetest: base

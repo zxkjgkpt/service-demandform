@@ -2,6 +2,7 @@ package com.yfny.servicedemandform.mapper;
 
 import com.yfny.corepojo.entity.demandform.XqdFileEntity;
 import com.yfny.servicedemandform.sqlbuilder.XqdFileSqlBuilder;
+import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -22,7 +23,7 @@ public interface XqdFileMapper extends BaseMapper<XqdFileEntity> {
      * @return  返回对象列表为查询结果
      */
     @SelectProvider(type = XqdFileSqlBuilder.class, method = "buildFindXqdFileByAndCondition")
-    List<XqdFileEntity> findXqdFileByAndCondition(@Param("xqdFile") XqdFileEntity xqdFile);
+    List<XqdFileEntity> findListByAndCondition(@Param("xqdFile") XqdFileEntity xqdFile);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -31,7 +32,7 @@ public interface XqdFileMapper extends BaseMapper<XqdFileEntity> {
      * @return  返回对象列表为查询结果
      */
     @SelectProvider(type = XqdFileSqlBuilder.class, method = "buildFindXqdFileByORCondition")
-    List<XqdFileEntity> findXqdFileByORCondition(@Param("xqdFile") XqdFileEntity xqdFile);
+    List<XqdFileEntity> findListByORCondition(@Param("xqdFile") XqdFileEntity xqdFile);
 
     /**
      * 根据外键查询相应对象（一对多关系）

@@ -58,13 +58,27 @@ public class ServiceDemandformApplicationTests {
 //                .setDescription("需求单应用域详情")
 //                .build();
 //        invoker3.execute();
+//
+//        Invoker invoker4 = new ProducerInvoker.Builder()
+//                .setTableName("imp_xqd_files")
+//                .setClassName("XqdFile")
+//                .setDescription("需求单附件")
+//                .build();
+//        invoker4.execute();
+//
+//        Invoker invoker5 = new ProducerInvoker.Builder()
+//                .setTableName("imp_xqd_fileblocks")
+//                .setClassName("XqdFileBlocks")
+//                .setDescription("需求单附件")
+//                .build();
+//        invoker5.execute();
 
-        Invoker invoker4 = new ProducerInvoker.Builder()
-                .setTableName("imp_xqd_files")
-                .setClassName("XqdFile")
-                .setDescription("需求单附件")
+        Invoker invoker6 = new ProducerInvoker.Builder()
+                .setTableName("imp_flow_log")
+                .setClassName("XqdFlowLog")
+                .setDescription("需求单操作记录")
                 .build();
-        invoker4.execute();
+        invoker6.execute();
     }
 
     @Test

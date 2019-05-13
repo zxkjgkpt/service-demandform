@@ -12,7 +12,14 @@ import java.util.Map;
  * Date  2019-04-03
  */
 public class XqdxxSqlBuilder {
-
+    //创建单号
+    public String createDh(){
+        String sqlResult = new SQL() {{
+            SELECT("nextval('xqd')");
+            FROM("DUAL");
+        }}.toString();
+        return sqlResult;
+    }
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，多条件并列查询取交集
      *
@@ -42,7 +49,7 @@ public class XqdxxSqlBuilder {
         }
         String finalOrSql = orSql;
         String sqlResult = new SQL() {{
-            SELECT("*");
+            SELECT("*, TASK_ID AS taskId");
             FROM("imp_xqd_xqdxx");
             if (xqdxx.getXqdh() != null && !xqdxx.getXqdh().equals("")) {
                 //将中文逗号替换成英文逗号
@@ -101,7 +108,9 @@ public class XqdxxSqlBuilder {
                 WHERE("XQZS like #{xqdxx.xqzs}" + finalOrSql);
             }
             if (xqdxx.getZzid() != null && !xqdxx.getZzid().equals("")) {
-                WHERE("ZZID like #{xqdxx.zzid}" + finalOrSql);
+                //将中文逗号替换成英文逗号
+                xqdxx.setZzid(xqdxx.getZzid().replace("，", ","));
+                WHERE("ZZID IN (" + xqdxx.getZzid() + ")");
             }
             if (xqdxx.getBmjb() != null && !xqdxx.getBmjb().equals("")) {
                 WHERE("BMJB like #{xqdxx.bmjb}" + finalOrSql);
@@ -158,22 +167,22 @@ public class XqdxxSqlBuilder {
                 String date = null;
                 try {
                     date = sdf.format(sdf.parse(xqdxx.getStartTime()));
+                    xqdxx.setStartTime(date);
+                    WHERE("CJSJ >= #{xqdxx.startTime}" + finalOrSql);
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
-                xqdxx.setStartTime(date);
-                WHERE("CJSJ >= #{xqdxx.startTime}" + finalOrSql);
             }
             if (xqdxx.getEndTime() != null && !xqdxx.getEndTime().equals("")) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String date = null;
                 try {
                     date = sdf.format(sdf.parse(xqdxx.getEndTime()));
+                    xqdxx.setEndTime(date);
+                    WHERE("CJSJ <= #{xqdxx.endTime}" + finalOrSql);
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }
-                xqdxx.setEndTime(date);
-                WHERE("CJSJ <= #{xqdxx.endTime}" + finalOrSql);
             }
         }}.toString();
 

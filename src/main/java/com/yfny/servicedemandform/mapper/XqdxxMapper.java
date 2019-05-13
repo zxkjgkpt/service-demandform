@@ -2,6 +2,7 @@ package com.yfny.servicedemandform.mapper;
 
 import com.yfny.corepojo.entity.demandform.XqdxxEntity;
 import com.yfny.servicedemandform.sqlbuilder.XqdxxSqlBuilder;
+import com.yfny.utilscommon.basemvc.producer.BaseMapper;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 
@@ -21,7 +22,7 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
      * @return  返回对象列表为查询结果
      */
     @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByAndCondition")
-    List<XqdxxEntity> findSimpleXqdxxByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+    List<XqdxxEntity> findSimpleListByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，并列查询取交集
@@ -39,7 +40,7 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
             @Result(property = "xqdFileList", column = "XQDH",
                     many = @Many(select = "com.yfny.servicedemandform.mapper.XqdFileMapper.findXqdFileByPath", fetchType = FetchType.EAGER))
     })
-    List<XqdxxEntity> findXqdxxByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+    List<XqdxxEntity> findListByAndCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -48,7 +49,7 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
      * @return  返回对象列表为查询结果
      */
     @SelectProvider(type = XqdxxSqlBuilder.class, method = "buildFindXqdxxByORCondition")
-    List<XqdxxEntity> findSimpleXqdxxByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+    List<XqdxxEntity> findSimpleListByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
 
     /**
      * 根据实体中的属性值进行查询，查询条件使用LIKE，亦或查询取并集
@@ -66,6 +67,10 @@ public interface XqdxxMapper extends BaseMapper<XqdxxEntity> {
             @Result(property = "xqdFileList", column = "XQDH",
                     many = @Many(select = "com.yfny.servicedemandform.mapper.XqdFileMapper.findXqdFileByPath", fetchType = FetchType.EAGER))
     })
-    List<XqdxxEntity> findXqdxxByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+    List<XqdxxEntity> findListByORCondition(@Param("xqdxx") XqdxxEntity xqdxx);
+
+    //创建单号
+    @SelectProvider(type = XqdxxSqlBuilder.class, method = "createDh")
+    String createSeq();
 
 }

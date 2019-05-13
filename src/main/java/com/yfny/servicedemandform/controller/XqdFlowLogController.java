@@ -1,7 +1,7 @@
 package com.yfny.servicedemandform.controller;
 
-import com.yfny.corepojo.entity.demandform.XqdxxEntity;
-import com.yfny.servicedemandform.future.XqdxxFuture;
+import com.yfny.corepojo.entity.demandform.XqdFlowLogEntity;
+import com.yfny.servicedemandform.future.XqdFlowLogFuture;
 import com.yfny.utilscommon.basemvc.producer.BaseController;
 import com.yfny.utilscommon.basemvc.producer.BaseFuture;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 需求单详情Controller
+ * 需求单操作记录Controller
  * Author auto
- * Date  2019-04-03
+ * Date  2019-05-08
  */
 @RestController
-@RequestMapping(value = "/xqdxx")
-public class XqdxxController extends BaseController<XqdxxEntity> {
+@RequestMapping(value = "/xqdFlowLog")
+public class XqdFlowLogController extends BaseController<XqdFlowLogEntity> {
 
     @Autowired
-    private XqdxxFuture xqdxxFuture;
+    private XqdFlowLogFuture xqdFlowLogFuture;
 
     @Override
-    public BaseFuture<XqdxxEntity> getBaseFuture() {
-        return this.xqdxxFuture;
+    public BaseFuture<XqdFlowLogEntity> getBaseFuture() {
+        return this.xqdFlowLogFuture;
     }
 
 }
